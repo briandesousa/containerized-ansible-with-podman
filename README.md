@@ -2,16 +2,16 @@
 
 This repository contains all required artifacts and instructions to setup several Podman containers to experiement with Ansible.
 
-By following the instructions below, you will:
+Follow the instructions below to:
 
-* setup a Podman machine to run containers from
-* setup an Ansible controller container from which playbooks can be executed from
-* setup 3 test hosts that will be used as target hosts in your playbook
+* setup a Podman machine to run containers
+* setup an Ansible controller container from which you can experiement with and execute playbooks
+* setup 3 test host containers that are included in your Ansible inventory and serve as targets for your playbooks
 * test connectivity between the Ansible controller container and the 3 test host containers
-* run a playbook that applies several different types of plays to some of the test host containers
-* clean up containers and images when your done (optional)
+* run a playbook that applies several different types of plays to the test host containers
+* optionally clean up all containers and images when your done
 
-All container images are based on Red Hat Universal Base Image (UBI) version 9 and do not RHEL subscriptions. UBI images are essentially simplified, open-source versions of Red Hat Enterprise Linux.
+All the container images are based on [Red Hat Universal Base Image (UBI)](https://catalog.redhat.com/software/base-images) version 9 and do not require RHEL subscriptions or licenses. Red Hat UBIs are essentially simplified, open-source, freely available versions of Red Hat Enterprise Linux.
 
 ## Prerequisites
 
