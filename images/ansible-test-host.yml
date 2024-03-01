@@ -1,0 +1,9 @@
+FROM ubi9/ubi-init
+RUN yum update -y
+RUN yum install -y openssh-server iputils lsof
+COPY .ssh/ /root/.ssh/
+RUN chown -R root:root /root/.ssh
+RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+RUN ssh-keygen -A
+RUN systemctl enable sshd
+EXPOSE 22

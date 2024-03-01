@@ -1,0 +1,35 @@
+# https://toptechtips.github.io/2023-06-10-ansible-python/
+---
+- name: Setup ansible-test-host-1
+  hosts: ansible-test-host-1
+  tasks:
+  - name: Install required packages
+    yum:
+      name: nano
+      state: latest
+
+  - name: Check nano version
+    ansible.builtin.shell: nano --version | grep version
+    # force ansible to show this task as "unchanged" (shell and command tasks show as changes by default)
+    changed_when: false
+    register: nanoVersion
+
+  - name: Output nano version
+    debug:
+      msg: "Nano version information: {{nanoVersion.stdout}}"
+
+  - name: Run arbitrary command
+    ansible.builtin.command:
+      argv:
+        - nano
+        - --version
+
+  # - name: Execute Python Script using the script module
+  #   ansible.builtin.script:
+  #     cmd: ./script.py 
+  #     executable: /usr/bin/python3
+  #   register: result
+
+  # - name: Output result
+  #   debug:
+  #     msg: "{{ result }}"

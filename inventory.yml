@@ -1,0 +1,15 @@
+---
+
+all:
+  vars:
+    # automatically add hosts to known_hosts on first connection
+    ansible_ssh_common_args: -o StrictHostKeyChecking=no
+
+group1:
+  hosts:
+    ansible-test-host-1:
+    ansible-test-host-3:
+
+group2:
+  hosts:
+    ansible-test-host-2:
