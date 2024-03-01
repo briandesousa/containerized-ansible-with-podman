@@ -28,7 +28,8 @@ To setup Ansible contoller and test host containers, run these commands in bash 
 
 ```bash 
 # generate SSH keys for Ansible to connect between containers
-ssh-keygen -q -f images/.ssh/id_rsa -N ''
+mkdir ./Containerfiles/.ssh
+ssh-keygen -q -f ./Containerfiles/.ssh/id_rsa -N ''
 
 # create, start and connect to podman machine
 podman machine init --rootful=true
@@ -36,13 +37,13 @@ podman machine start
 wsl -d podman-machine-default
 
 # build images
-podman build --tag ansible-controller -f /mnt/d/workspaces/ansible/images/ansible-controller.yml
-podman build --tag ansible-test-host -f /mnt/d/workspaces/ansible/images/ansible-test-host.yml
+podman build --tag ansible-controller -f ./Containerfiles/ansible-controller.yml
+podman build --tag ansible-test-host -f ./Containerfiles/ansible-test-host.yml
 podman image ls
 
 # create 1 Ansible controller container and 3 test containers
 podman network create ansible-network
-podman run -dti --name ansible-controller --network ansible-network -v /d/workspaces/ansible:/ansible localhost/ansible-controller
+podman run -dti --name ansible-controller --network ansible-network -v ./:/ansible localhost/ansible-controller
 podman run -dti -p 2221:22 --network ansible-network --name ansible-test-host-1 localhost/ansible-test-host
 podman run -dti -p 2222:22 --network ansible-network --name ansible-test-host-2 localhost/ansible-test-host
 podman run -dti -p 2223:22 --network ansible-network --name ansible-test-host-3 localhost/ansible-test-host
