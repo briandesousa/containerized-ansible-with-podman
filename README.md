@@ -1,6 +1,6 @@
 # Containerized Ansible Environment with Podman
 
-This repository contains all requires artifacts and instructions to setup several Podman containers to experiement with Ansible.
+This repository contains all required artifacts and instructions to setup several Podman containers to experiement with Ansible.
 
 By following the instructions below, you will:
 
