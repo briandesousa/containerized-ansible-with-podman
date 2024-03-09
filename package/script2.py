@@ -1,0 +1,1 @@
+print("Script2 inside of archive")

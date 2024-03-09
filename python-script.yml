@@ -1,0 +1,51 @@
+
+---
+- name: Get and run a script
+  hosts: ansible-test-host-1
+  tasks:
+  - name: Ensure /srv folder exists
+    file:
+      path: /srv
+      state: directory
+
+  - name: Get python script
+    get_url:
+      url: https://github.com/briandesousa/containerized-ansible-with-podman/raw/main/script.py
+      dest: /srv
+      mode: '0744'
+
+  - name: Run script
+    shell: python3 /srv/script.py
+    register: pythonScriptOutput
+
+  - name: Print python script output
+    debug:
+      msg: "Python script output: {{pythonScriptOutput.stdout}}"
+
+  - name: Get package
+    get_url: 
+      url: https://github.com/briandesousa/containerized-ansible-with-podman/raw/main/package.tar
+      dest: /srv
+      mode: '0744'
+
+  - name: Create folder
+    file:
+      path: /srv/package
+      state: directory
+      mode: '0744'
+  
+  - name: Extract package to folder
+    unarchive:
+      src: /srv/package.tar
+      remote_src: yes
+      dest: /srv/package
+      mode: '0744'
+      list_files: true
+
+  - name: Run script from extracted package
+    shell: python3 /srv/package/script2.py
+    register: pythonScript2Output
+
+  - name: Print script2 output
+    debug:
+      msg: "Python script2 output: {{pythonScript2Output.stdout}}"
